@@ -1,5 +1,6 @@
 package memberBoard.view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import memberBoard.controller.UserController;
@@ -21,8 +22,15 @@ public class UserView {
 			System.out.println("3. 종료");
 			System.out.print("선택: ");
 			
-			int choice = sc.nextInt();
-			sc.nextLine();
+			int choice = 0;
+			try {
+				choice = sc.nextInt();
+				sc.nextLine(); // 개행문자 제거
+			} catch(InputMismatchException e) {
+				System.out.println("숫자를 입력해주세요.");
+				sc.nextLine(); // 잘못된 입력 버림
+				continue; // 다시 반복
+			}
 
 			switch (choice) {
 			case 1:

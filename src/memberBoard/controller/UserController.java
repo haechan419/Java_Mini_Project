@@ -8,16 +8,18 @@ import memberBoard.domain.entity.User;
 import memberBoard.exception.UserException;
 import memberBoard.service.UserService;
 
-// 콘솔 입력/출력 담당
+// 회원가입/로그인
 
 public class UserController {
 
 	private final UserService userService;
 	private final Scanner sc = new Scanner(System.in);
+	private final BoardController boardController;
 
-	public UserController(UserService userService) {
+	public UserController(UserService userService,BoardController boardController) {
 		super();
 		this.userService = userService;
+		this.boardController = boardController;
 	}
 
 	// 사용자 회원가입
@@ -73,7 +75,8 @@ public class UserController {
 			System.out.println("1. 회원정보 보기");
 			System.out.println("2. 회원정보 수정");
 			System.out.println("3. 회원탈퇴");
-			System.out.println("4. 로그아웃");
+			System.out.println("4. 게시판으로 이동");
+			System.out.println("5. 로그아웃");
 			System.out.print("선택: ");
 
 			int choice = sc.nextInt();
@@ -91,6 +94,10 @@ public class UserController {
 				// 삭제 후 자동 로그아웃
 				return;
 			case 4:
+				// 게시판 메뉴로 이동
+				boardController.showBoardMenu(user);
+				break;
+			case 5:
 				System.out.println("로그아웃 되었습니다.");
 				return;
 			default:

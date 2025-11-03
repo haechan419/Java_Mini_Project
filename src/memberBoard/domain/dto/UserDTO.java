@@ -1,8 +1,5 @@
 package memberBoard.domain.dto;
 
-// DTO : View <-> Controller <-> Service 간 데이터 전달용 객체
-// Controller -> Service로 회원가입 정보를 전달할 때 사용
-
 public class UserDTO {
 	private String username;
 	private String password;
@@ -38,5 +35,4 @@ public class UserDTO {
 	public String getEmail() {
 		return email;
 	}
-
 }

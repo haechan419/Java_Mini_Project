@@ -3,9 +3,6 @@ package memberBoard.domain.entity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-// Entity
-//(Entity는 DB 저장용, DTO는 데이터 전달용)
-
 public class User {
 	private int id;
 	private String username; // 사용자 아이디
@@ -18,7 +15,7 @@ public class User {
 	private String createdAt; // 가입일
 	private String updateAt; // 수정일
 
-	// 생성자
+	// id 포함 생성자
 	public User(int id, String username, String password, String name, String phone, String email) {
 		super();
 		this.id = id;
@@ -31,6 +28,11 @@ public class User {
 		this.status = true; // 가입 시 활성화 상태로 설정
 		this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		this.updateAt = this.createdAt; // 처음에는 가입일과 동일
+	}
+
+	// id 없는 생성자 추가 (선택)
+	public User(String username, String password, String name, String phone, String email) {
+		this(0, username, password, name, phone, email);
 	}
 
 	// Getter
@@ -75,7 +77,6 @@ public class User {
 	}
 
 	// Setter
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -95,18 +96,19 @@ public class User {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	// 수정일 자동 갱신
 	public void updateTimestamp() {
-		this.updateAt=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+		this.updateAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 	}
 
 	@Override
 	public String toString() {
-		return "User [ID=" + id + ", 아이디=" + username + ", 이름=" + name + ", 연락처=" + phone + ", 이메일=" + email
-				+ ", 권한=" + role + ", 활성화=" + status + ", 가입일=" + createdAt + ", 수정일=" + updateAt + "]";
+		return "User [ID=" + id + ", 아이디=" + username + ", 이름=" + name + ", 연락처=" + phone + ", 이메일=" + email + ", 권한="
+				+ role + ", 활성화=" + status + ", 가입일=" + createdAt + ", 수정일=" + updateAt + "]";
 	}
-	
-	
-
 }
