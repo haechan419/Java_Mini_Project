@@ -1,76 +1,114 @@
+// ============================================
+// BoardServiceImpl.java - 구현체
+// ============================================
 package memberBoard.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import memberBoard.domain.dto.BoardDTO;
 import memberBoard.domain.entity.Board;
+import memberBoard.exception.BoardException;
 import memberBoard.repository.BoardRepository;
+import memberBoard.validator.BoardValidator;
 
 public class BoardServiceImpl implements BoardService {
-    private final BoardRepository repository;
 
-    public BoardServiceImpl(BoardRepository repository) {
-        this.repository = repository;
-    }
+	private final BoardRepository boardRepository;
+	private final BoardValidator boardValidator;
 
-    // DTO → Entity 변환
-    private Board toEntity(BoardDTO dto) {
-        Board board = new Board(dto.getId(), dto.getTitle(), dto.getContent(), dto.getUserId());
-        // createdAt, updatedAt는 엔티티가 자동 처리 (DB에서 NOW() 등)
-        return board;
-    }
+	public BoardServiceImpl(BoardRepository boardRepository) {
+		this.boardRepository = boardRepository;
+		this.boardValidator = new BoardValidator();
+	}
 
-    // Entity → DTO 변환
-    private BoardDTO toDTO(Board board) {
-        return new BoardDTO(board.getId(), board.getTitle(), board.getContent(), board.getUserId(),
-                board.getCreatedAt(), board.getUpdatedAt());
-    }
+	@Override
+	public void createBoard(BoardDTO boardDTO) throws BoardException {
+		// 유효성 검증
+		boardValidator.validateBoard(boardDTO);
 
-    @Override
-    public void createBoard(BoardDTO boardDTO) throws Exception {
-        Board board = toEntity(boardDTO);
-        repository.save(board);
-        // 저장 후 id 생성 등 필요하면 다시 변환 가능
-    }
+		// DTO -> Entity 변환
+		Board board = toEntity(boardDTO);
 
-    @Override
-    public BoardDTO getBoardById(int id) throws Exception {
-        Board board = repository.findById(id);
-        if (board == null) return null;
-        return toDTO(board);
-    }
+		// 저장
+		boardRepository.save(board);
+	}
 
-    @Override
-    public List<BoardDTO> getAllBoards() throws Exception {
-        List<Board> boards = repository.findAll();
-        List<BoardDTO> dtos = new ArrayList<>();
-        for (Board board : boards) {
-            dtos.add(toDTO(board));
-        }
-        return dtos;
-    }
+	@Override
+	public BoardDTO getBoardById(int id) throws BoardException {
+		Optional<Board> boardOpt = boardRepository.findById(id);
 
-    @Override
-    public void updateBoard(BoardDTO boardDTO) throws Exception {
-        Board board = toEntity(boardDTO);
-        repository.update(board);
-    }
+		if (!boardOpt.isPresent()) {
+			throw new BoardException("존재하지 않는 게시글입니다.");
+		}
 
-    @Override
-    public void deleteBoard(int id) throws Exception {
-        repository.delete(id);
-    }
+		return toDTO(boardOpt.get());
+	}
 
-    @Override
-    public List<BoardDTO> getBoardsByUserId(int userId) throws Exception {
-        List<Board> boards = repository.findByUserId(userId);
-        List<BoardDTO> dtos = new ArrayList<>();
-        for (Board board : boards) {
-            dtos.add(toDTO(board));
-        }
-        return dtos;
-    }
-    
-    
+	@Override
+	public List<BoardDTO> getAllBoards() {
+		List<Board> boards = boardRepository.findAll();
+		return boards.stream().map(this::toDTO).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<BoardDTO> getBoardsByUserId(int userId) {
+		List<Board> boards = boardRepository.findByUserId(userId);
+		return boards.stream().map(this::toDTO).collect(Collectors.toList());
+	}
+
+	@Override
+	public void updateBoard(BoardDTO boardDTO) throws BoardException {
+		// 게시글 존재 확인
+		if (!boardRepository.existsById(boardDTO.getId())) {
+			throw new BoardException("존재하지 않는 게시글입니다.");
+		}
+
+		// 유효성 검증
+		boardValidator.validateBoard(boardDTO);
+
+		// DTO -> Entity 변환 및 업데이트
+		Board board = toEntity(boardDTO);
+		boardRepository.update(board);
+	}
+
+	@Override
+	public void deleteBoard(int id) throws BoardException {
+		// 게시글 존재 확인
+		if (!boardRepository.existsById(id)) {
+			throw new BoardException("존재하지 않는 게시글입니다.");
+		}
+
+		boardRepository.delete(id);
+	}
+
+	@Override
+	public void deleteBoardByUser(int id, int userId) throws BoardException {
+		// 게시글 조회
+		Optional<Board> boardOpt = boardRepository.findById(id);
+
+		if (!boardOpt.isPresent()) {
+			throw new BoardException("존재하지 않는 게시글입니다.");
+		}
+
+		Board board = boardOpt.get();
+
+		// 작성자 확인
+		if (!board.isOwnedBy(userId)) {
+			throw new BoardException("본인 게시글만 삭제할 수 있습니다.");
+		}
+
+		boardRepository.delete(id);
+	}
+
+	// Entity <-> DTO 변환 메서드
+	private Board toEntity(BoardDTO dto) {
+		return new Board(dto.getId(), dto.getTitle(), dto.getContent(), dto.getUserId());
+	}
+
+	private BoardDTO toDTO(Board board) {
+		return new BoardDTO(board.getId(), board.getTitle(), board.getContent(), board.getUserId(),
+				board.getCreatedAt(), board.getUpdatedAt());
+	}
 }

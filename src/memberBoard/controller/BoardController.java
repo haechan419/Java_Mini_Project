@@ -1,139 +1,158 @@
+// ============================================
+// BoardController.java - 게시글 컨트롤러
+// ============================================
 package memberBoard.controller;
 
 import java.util.List;
-import java.util.Scanner;
 
 import memberBoard.domain.dto.BoardDTO;
 import memberBoard.domain.entity.User;
+import memberBoard.exception.BoardException;
 import memberBoard.service.BoardService;
-
-// 게시글 CRUD
+import memberBoard.view.InputHandler;
+import memberBoard.view.MessageView;
 
 public class BoardController {
-	private final BoardService boardService;
-	private final Scanner sc = new Scanner(System.in);
-
-	public BoardController(BoardService boardService) {
-		this.boardService = boardService;
-	}
-	public BoardService getBoardService() {
-		return boardService;
-	}
-
-	// 게시판 메뉴 (로그인한 User 전달)
-	public void showBoardMenu(User user) {
-		while (true) {
-			System.out.println("\n=== 게시판 메뉴 ===");
-			System.out.println("1. 게시글 작성");
-			System.out.println("2. 내 게시글 목록");
-			System.out.println("3. 게시글 수정");
-			System.out.println("4. 게시글 삭제");
-			System.out.println("5. 전체 게시글 조회");
-			System.out.println("6. 종료");
-			System.out.print("선택: ");
-
-			int choice = sc.nextInt();
-			sc.nextLine();
-
-			try {
-				switch (choice) {
-				case 1:
-					createBoard(user);
-					break;
-				case 2:
-					listMyBoards(user);
-					break;
-				case 3:
-					updateBoard(user);
-					break;
-				case 4:
-					deleteBoard(user);
-					break;
-				case 5:
-					listAllBoards();
-					break;
-				case 6:
-					System.out.println("게시판을 종료합니다.");
-					return;
-				default:
-					System.out.println("잘못된 선택입니다.");
-				}
-			} catch (Exception e) {
-				System.out.println("오류 발생: " + e.getMessage());
-			}
-		}
-	}
-
-	private void createBoard(User user) throws Exception {
-        System.out.print("제목: ");
-        String title = sc.nextLine();
-        System.out.print("내용: ");
-        String content = sc.nextLine();
-
-        BoardDTO dto = new BoardDTO(title, content, user.getId());
-        boardService.createBoard(dto);
-        System.out.println("[게시글 작성 완료]");
+    
+    private final BoardService boardService;
+    private final InputHandler inputHandler;
+    private final MessageView messageView;
+    
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+        this.inputHandler = new InputHandler();
+        this.messageView = new MessageView();
     }
-
-    private void listMyBoards(User user) throws Exception {
+    
+    // 게시글 작성
+    public void createBoard(User user) {
+        try {
+            messageView.printHeader("게시글 작성");
+            
+            String title = inputHandler.getString("제목");
+            String content = inputHandler.getMultilineString("내용");
+            
+            BoardDTO dto = new BoardDTO(title, content, user.getId());
+            boardService.createBoard(dto);
+            
+            messageView.printSuccess("게시글 작성 완료");
+        } catch (BoardException e) {
+            messageView.printError("게시글 작성 실패", e.getMessage());
+        }
+    }
+    
+    // 내 게시글 목록
+    public void viewMyBoards(User user) {
+        messageView.printHeader("내 게시글 목록");
         List<BoardDTO> boards = boardService.getBoardsByUserId(user.getId());
-        System.out.println("=== 내 게시글 목록 ===");
-        for (BoardDTO b : boards) {
-            System.out.println(b);
-        }
+        messageView.printBoardList(boards);
     }
-
-    private void updateBoard(User user) throws Exception {
-        System.out.print("수정할 게시글 ID: ");
-        int id = sc.nextInt();
-        sc.nextLine();
-
-        BoardDTO dto = boardService.getBoardById(id);
-        if (dto == null || dto.getUserId() != user.getId()) {
-            System.out.println("해당 게시글이 없거나 권한이 없습니다.");
-            return;
-        }
-
-        System.out.print("새 제목(수정하지 않으려면 Enter): ");
-        String title = sc.nextLine();
-        System.out.print("새 내용(수정하지 않으려면 Enter): ");
-        String content = sc.nextLine();
-
-        if (!title.isEmpty())
-            dto.setTitle(title);
-        if (!content.isEmpty())
-            dto.setContent(content);
-
-        boardService.updateBoard(dto);
-        System.out.println("[게시글 수정 완료]");
-    }
-
-    private void deleteBoard(User user) throws Exception {
-    	System.out.print("삭제할 게시글 ID: ");
-        int id = sc.nextInt();
-        sc.nextLine();
-
-        BoardDTO boardDTO = boardService.getBoardById(id);
-        if (boardDTO == null) {
-            System.out.println("존재하지 않는 게시글입니다.");
-            return;
-        }
-
-        // 일반 유저는 본인 게시글만 삭제 가능, 관리자는 모든 게시글 삭제 가능
-        if (!user.getRole().equalsIgnoreCase("ADMIN") && boardDTO.getUserId() != user.getId()) {
-            System.out.println("본인 게시글만 삭제할 수 있습니다.");
-            return;
-        }
-
-        boardService.deleteBoard(id);
-        System.out.println("[게시글 삭제 완료]");
-    }
-
-    private void listAllBoards() throws Exception {
+    
+    // 전체 게시글 목록
+    public void viewAllBoards() {
+        messageView.printHeader("전체 게시글 목록");
         List<BoardDTO> boards = boardService.getAllBoards();
-        System.out.println("=== 전체 게시글 목록 ===");
-        for (BoardDTO b : boards) {
-            System.out.println(b);
+        messageView.printBoardList(boards);
+    }
+    
+    // 게시글 상세 조회
+    public void viewBoard() {
+        try {
+            int id = inputHandler.getInt("게시글 ID");
+            
+            BoardDTO board = boardService.getBoardById(id);
+            messageView.printBoardDetail(board);
+        } catch (BoardException e) {
+            messageView.printError("게시글 조회 실패", e.getMessage());
+        }
+    }
+    
+    // 게시글 수정
+    public void updateBoard(User user) {
+        try {
+            messageView.printHeader("게시글 수정");
+            
+            int id = inputHandler.getInt("수정할 게시글 ID");
+            
+            BoardDTO dto = boardService.getBoardById(id);
+            
+            // 권한 확인
+            if (!user.isAdmin() && dto.getUserId() != user.getId()) {
+                messageView.printError("본인 게시글만 수정할 수 있습니다.");
+                return;
+            }
+            
+            String title = inputHandler.getOptionalString(
+                "새 제목 (변경 안함: Enter, 현재: " + dto.getTitle() + ")");
+            String content = inputHandler.getOptionalMultilineString(
+                "새 내용 (변경 안함: Enter)");
+            
+            if (title != null && !title.isEmpty()) {
+                dto.setTitle(title);
+            }
+            if (content != null && !content.isEmpty()) {
+                dto.setContent(content);
+            }
+            
+            boardService.updateBoard(dto);
+            messageView.printSuccess("게시글 수정 완료");
+        } catch (BoardException e) {
+            messageView.printError("게시글 수정 실패", e.getMessage());
+        }
+    }
+    
+    // 게시글 삭제
+    public void deleteBoard(User user) {
+        try {
+            messageView.printHeader("게시글 삭제");
+            
+            int id = inputHandler.getInt("삭제할 게시글 ID");
+            
+            boolean confirm = inputHandler.getConfirmation("정말로 삭제하시겠습니까?");
+            if (!confirm) {
+                messageView.printInfo("삭제가 취소되었습니다.");
+                return;
+            }
+            
+            if (user.isAdmin()) {
+                // 관리자는 모든 게시글 삭제 가능
+                boardService.deleteBoard(id);
+            } else {
+                // 일반 사용자는 본인 게시글만 삭제 가능
+                boardService.deleteBoardByUser(id, user.getId());
+            }
+            
+            messageView.printSuccess("게시글 삭제 완료");
+        } catch (BoardException e) {
+            messageView.printError("게시글 삭제 실패", e.getMessage());
+        }
+    }
+    
+    // 관리자: 게시글 관리
+    public void manageBoardsByAdmin() {
+        try {
+            messageView.printHeader("게시글 관리");
+            
+            List<BoardDTO> boards = boardService.getAllBoards();
+            messageView.printBoardList(boards);
+            
+            int boardId = inputHandler.getInt("삭제할 게시글 ID (취소: 0)");
+            
+            if (boardId == 0) {
+                messageView.printInfo("게시글 삭제 취소");
+                return;
+            }
+            
+            boolean confirm = inputHandler.getConfirmation("정말로 삭제하시겠습니까?");
+            if (!confirm) {
+                messageView.printInfo("삭제가 취소되었습니다.");
+                return;
+            }
+            
+            boardService.deleteBoard(boardId);
+            messageView.printSuccess("게시글 삭제 완료");
+        } catch (BoardException e) {
+            messageView.printError("게시글 관리 실패", e.getMessage());
         }
     }
 }

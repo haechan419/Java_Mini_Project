@@ -1,16 +1,16 @@
 // ============================================
-// UserException.java - 사용자 예외
+// BoardException.java - 게시글 예외
 // ============================================
 package memberBoard.exception;
 
-public class UserException extends Exception {
+public class BoardException extends Exception {
     private static final long serialVersionUID = 1L;
     
-    public UserException(String message) {
+    public BoardException(String message) {
         super(message);
     }
     
-    public UserException(String message, Throwable cause) {
+    public BoardException(String message, Throwable cause) {
         super(message, cause);
     }
 }

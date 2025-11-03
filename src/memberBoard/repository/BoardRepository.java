@@ -1,19 +1,24 @@
+// ============================================
+// BoardRepository.java - 인터페이스
+// ============================================
 package memberBoard.repository;
 
 import java.util.List;
-
+import java.util.Optional;
 import memberBoard.domain.entity.Board;
 
 public interface BoardRepository {
-	void save(Board board) throws Exception; // 게시글 저장
+	void save(Board board);
 
-	Board findById(int id) throws Exception; // ID로 게시글 조회
+	Optional<Board> findById(int id);
 
-	List<Board> findAll() throws Exception; // 전체 게시글 조회
+	List<Board> findAll();
 
-	void update(Board board) throws Exception; // 게시글 수정
+	List<Board> findByUserId(int userId);
 
-	void delete(int id) throws Exception; // 게시글 삭제
+	void update(Board board);
 
-	List<Board> findByUserId(int userId) throws Exception; // 특정 유저 게시글 조회
+	void delete(int id);
+
+	boolean existsById(int id);
 }

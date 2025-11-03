@@ -1,19 +1,24 @@
+// ============================================
+// BoardService.java - 인터페이스
+// ============================================
 package memberBoard.service;
 
 import java.util.List;
-
 import memberBoard.domain.dto.BoardDTO;
+import memberBoard.exception.BoardException;
 
 public interface BoardService {
-    void createBoard(BoardDTO boardDTO) throws Exception;
+	void createBoard(BoardDTO boardDTO) throws BoardException;
 
-    BoardDTO getBoardById(int id) throws Exception;
+	BoardDTO getBoardById(int id) throws BoardException;
 
-    List<BoardDTO> getAllBoards() throws Exception;
+	List<BoardDTO> getAllBoards();
 
-    void updateBoard(BoardDTO boardDTO) throws Exception;
+	List<BoardDTO> getBoardsByUserId(int userId);
 
-    void deleteBoard(int id) throws Exception;
+	void updateBoard(BoardDTO boardDTO) throws BoardException;
 
-    List<BoardDTO> getBoardsByUserId(int userId) throws Exception;
+	void deleteBoard(int id) throws BoardException;
+
+	void deleteBoardByUser(int id, int userId) throws BoardException;
 }
