@@ -23,4 +23,10 @@ public interface UserService {
 
 	// 전체 회원 조회(관리자 전용)
 	List<User> getAllUsers();
+	
+	// 아이디 찾기
+	String findUsernameByNameAndEmail(String name, String email) throws UserException;
+
+	// 비밀번호 재설정
+	void resetPassword(String username, String name, String email) throws UserException;
 }

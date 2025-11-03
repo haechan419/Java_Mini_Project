@@ -71,6 +71,12 @@ public class BoardDTO {
 
     @Override
     public String toString() {
-        return "BoardDTO [id=" + id + ", title=" + title + ", userId=" + userId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+        return "게시글 ID: " + id
+             + ", 제목: " + title
+             + ", 내용: " + content   // 내용 포함
+             + ", 작성자ID: " + userId
+             + ", 작성일: " + createdAt
+             + ", 수정일: " + updatedAt;
     }
+
 }

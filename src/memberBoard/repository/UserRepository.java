@@ -1,5 +1,6 @@
 package memberBoard.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import memberBoard.domain.entity.User;
@@ -7,7 +8,7 @@ import memberBoard.domain.entity.User;
 // 인터페이스
 
 public interface UserRepository {
-
+	
 	void save(User user);
 
 	User findByUsername(String username);

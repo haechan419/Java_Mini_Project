@@ -19,17 +19,19 @@ public class UserView {
 			System.out.println("=== [회원 관리 시스템] ===");
 			System.out.println("1. 회원가입");
 			System.out.println("2. 로그인");
-			System.out.println("3. 종료");
+			System.out.println("3. 아이디 찾기"); // 추가
+			System.out.println("4. 비밀번호 재설정"); // 추가
+			System.out.println("5. 종료");
 			System.out.print("선택: ");
-			
+
 			int choice = 0;
 			try {
 				choice = sc.nextInt();
-				sc.nextLine(); // 개행문자 제거
-			} catch(InputMismatchException e) {
+				sc.nextLine();
+			} catch (InputMismatchException e) {
 				System.out.println("숫자를 입력해주세요.");
-				sc.nextLine(); // 잘못된 입력 버림
-				continue; // 다시 반복
+				sc.nextLine();
+				continue;
 			}
 
 			switch (choice) {
@@ -39,7 +41,13 @@ public class UserView {
 			case 2:
 				controller.login();
 				break;
-			case 3:
+			case 3: // 아이디 찾기 메뉴
+				controller.findUsername();
+				break;
+			case 4: // 비밀번호 재설정 메뉴
+				controller.resetPassword();
+				break;
+			case 5:
 				System.out.println("프로그램을 종료합니다.");
 				return;
 			default:
@@ -47,6 +55,4 @@ public class UserView {
 			}
 		}
 	}
-
-	
 }

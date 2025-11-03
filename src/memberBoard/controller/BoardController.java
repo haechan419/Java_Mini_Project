@@ -16,6 +16,9 @@ public class BoardController {
 	public BoardController(BoardService boardService) {
 		this.boardService = boardService;
 	}
+	public BoardService getBoardService() {
+		return boardService;
+	}
 
 	// 게시판 메뉴 (로그인한 User 전달)
 	public void showBoardMenu(User user) {
@@ -106,13 +109,19 @@ public class BoardController {
     }
 
     private void deleteBoard(User user) throws Exception {
-        System.out.print("삭제할 게시글 ID: ");
+    	System.out.print("삭제할 게시글 ID: ");
         int id = sc.nextInt();
         sc.nextLine();
 
-        BoardDTO dto = boardService.getBoardById(id);
-        if (dto == null || dto.getUserId() != user.getId()) {
-            System.out.println("해당 게시글이 없거나 권한이 없습니다.");
+        BoardDTO boardDTO = boardService.getBoardById(id);
+        if (boardDTO == null) {
+            System.out.println("존재하지 않는 게시글입니다.");
+            return;
+        }
+
+        // 일반 유저는 본인 게시글만 삭제 가능, 관리자는 모든 게시글 삭제 가능
+        if (!user.getRole().equalsIgnoreCase("ADMIN") && boardDTO.getUserId() != user.getId()) {
+            System.out.println("본인 게시글만 삭제할 수 있습니다.");
             return;
         }
 
