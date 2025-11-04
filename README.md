@@ -27,7 +27,7 @@ Java 기반의 콘솔 애플리케이션으로 **회원 관리**와 **게시판 
 
 📅 **개발 기간:** `2025.10.31 ~ 2025.11.03 (2일)`  
 🧩 **프로젝트 유형:** 개인 프로젝트  
-📘 **진행 과정:** [Project Notion](https://www.notion.so/29d65619610a806bab2ce93517a489e6)
+📘 **진행 과정:** [Project Notion](https://www.notion.so/29c65619610a80fd8afef186e02b0a98)
 
 ---
 
@@ -168,6 +168,8 @@ memberBoard/
 ---
 
 ## ⚠️ 예외 처리 설계 (Exception Handling)
+
+📘 **진행 과정:** [Notion_Exception](https://www.notion.so/29d65619610a806bab2ce93517a489e6)
 
 
 | 예외 클래스 | 설명 |
