@@ -154,6 +154,7 @@ memberBoard/
 ---
 
 ER 다이어그램
+![Entity–Relationship Diagram](./image/javaMiniProjectERD.drawio.png)
 
 ---
 
