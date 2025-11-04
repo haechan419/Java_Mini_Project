@@ -57,57 +57,59 @@ Java 기반의 콘솔 애플리케이션으로 **회원 관리**와 **게시판 
 
 ```plaintext
 memberBoard/
-├── Main.java                     # 애플리케이션 시작점
+├── Main.java                                 # 애플리케이션 진입점 (메인 실행 클래스)
 │
-├── config/                       # 설정 관련
-│   ├── DBConnection.java         # DB 연결 (싱글톤)
-│   └── AppConfig.java            # 애플리케이션 설정 상수
+├── config/                                   # 애플리케이션 및 DB 설정
+│   ├── AppConfig.java                       # 상수 및 환경 설정값 (비밀번호 규칙, 정규식 등)
+│   └── DBConnection.java                    # MySQL DB 연결 관리 (Singleton)
 │
-├── domain/                       # 도메인 모델
-│   ├── entity/                   # 엔티티 (DB 테이블과 매핑)
-│   │   ├── User.java
-│   │   ├── Board.java
-│   │   └── Role.java
-│   └── dto/
-│       ├── UserDTO.java
-│       └── BoardDTO.java
+├── domain/
+│   ├── entity/                              # 실제 데이터 구조 정의 (DB 테이블 매핑용)
+│   │   ├── User.java                        # 사용자 엔티티
+│   │   └── Board.java                       # 게시글 엔티티
+│   │
+│   └── dto/                                 # 데이터 전송 객체 (Entity ↔ Controller 간 전달)
+│       ├── UserDTO.java                     # 사용자 정보 전달용 DTO
+│       └── BoardDTO.java                    # 게시글 정보 전달용 DTO
 │
-├── repository/
-│   ├── UserRepository.java
-│   ├── UserRepositoryImpl.java
-│   ├── BoardRepository.java
-│   └── BoardRepositoryImpl.java
+├── repository/                              # 데이터 접근 계층 (DAO)
+│   ├── UserRepository.java                  # 사용자 Repository 인터페이스
+│   ├── UserRepositoryImpl.java              # 사용자 Repository 구현체 (JDBC + SQL)
+│   ├── BoardRepository.java                 # 게시글 Repository 인터페이스
+│   └── BoardRepositoryImpl.java             # 게시글 Repository 구현체
 │
-├── service/
-│   ├── UserService.java
-│   ├── UserServiceImpl.java
-│   ├── BoardService.java
-│   └── BoardServiceImpl.java
+├── service/                                 # 비즈니스 로직 계층
+│   ├── UserService.java                     # 사용자 서비스 인터페이스
+│   ├── UserServiceImpl.java                 # 사용자 서비스 구현체
+│   ├── BoardService.java                    # 게시글 서비스 인터페이스
+│   └── BoardServiceImpl.java                # 게시글 서비스 구현체
 │
-├── controller/
-│   ├── UserController.java
-│   └── BoardController.java
+├── controller/                              # 컨트롤러 계층 (View ↔ Service 연결)
+│   ├── UserController.java                  # 회원 관련 요청 제어
+│   └── BoardController.java                 # 게시글 관련 요청 제어
 │
-├── view/
-│   ├── MainView.java
-│   ├── InputHandler.java
-│   └── MessageView.java
+├── view/                                    # 콘솔 기반 UI
+│   ├── MainView.java                        # 메인 메뉴 (회원 / 게시판 이동)
+│   ├── UserView.java                        # 회원 관련 메뉴 및 입력 처리
+│   ├── BoardView.java                       # 게시판 메뉴 및 입력 처리
+│   ├── InputHandler.java                    # 사용자 입력 유틸리티
+│   └── MessageView.java                     # 출력 메시지 관리
 │
-├── exception/
-│   ├── UserException.java
-│   └── BoardException.java
+├── exception/                               # 사용자 정의 예외 클래스
+│   ├── UserException.java                   # 회원 관련 예외
+│   └── BoardException.java                  # 게시판 관련 예외
 │
-├── validator/
-│   ├── UserValidator.java
-│   ├── BoardValidator.java
-│   └── InputValidator.java
+├── validator/                               # 입력값 유효성 검증
+│   ├── UserValidator.java                   # 회원가입/로그인 시 입력값 검증
+│   ├── BoardValidator.java                  # 게시글 작성/수정 시 입력값 검증
+│   └── InputValidator.java                  # 공통 입력 검증 (이메일, 전화번호 등)
 │
-├── security/
-│   └── PasswordUtil.java
+├── security/                                # 보안 관련 기능
+│   └── PasswordUtil.java                    # jbcrypt를 이용한 비밀번호 해싱 및 검증
 │
-└── util/
-    ├── PasswordGenerator.java
-    └── StringUtil.java
+└── util/                                   # 공통 유틸리티
+    ├── PasswordGenerator.java               # 임시 비밀번호 생성기
+    └── StringUtil.java                      # 문자열 관련 유틸
 ```
 ---
 
