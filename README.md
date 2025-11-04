@@ -154,6 +154,11 @@ memberBoard/
 
 ## 🧩 시스템 구조 다이어그램 (System Diagrams)
 
+### 데이터베이스(MySQL)
+| UserDB | BoardDB |
+|------|------------|
+| ![userDatabase](./image/userDB.png) | ![boardDatabase](./image/boardDB.png) |
+
 ### 📘 클래스 다이어그램
 ![Class_Diagram](./image/Java_Mini_Project.drawio.png)
 
