@@ -28,8 +28,7 @@ Java 기반의 콘솔 애플리케이션으로 회원 관리와 게시판 기능
 ---
 
 ## 프로젝트 노션
-[프로젝트 노션 링크](https://www.notion.so/MemberBoard-Project-Example-1234567890abcdef)  
-*(노션 페이지는 임의로 생성하였으며, 실제 사용 시 프로젝트 계획, 일정, 이슈 관리, 문서화 등에 활용)*
+[프로젝트 노션](https://www.notion.so/29c65619610a80fd8afef186e02b0a98)  
 
 ---
 
@@ -40,7 +39,7 @@ Java 기반의 콘솔 애플리케이션으로 회원 관리와 게시판 기능
 ---
 
 ## 기술 스택
-- Java 11  
+- Java 21  
 - MySQL (mysql-connector-j)  
 - jbcrypt (비밀번호 해싱)  
 - 표준 Java 컬렉션 프레임워크 (List, Optional 등)  
