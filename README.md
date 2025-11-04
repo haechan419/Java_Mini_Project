@@ -137,10 +137,12 @@ memberBoard/
 ---
 
 ## 🧩 예외 처리 설계
-- `UserNotFoundException`: 로그인 시 존재하지 않는 회원  
-- `DuplicateUserException`: 회원가입 시 중복 아이디  
-- `UnauthorizedAccessException`: 게시글 수정/삭제 시 권한 부족  
-- `InvalidInputException`: 잘못된 형식의 입력 처리  
+- `InvalidInputException`: 입력값 공백/형식 오류
+- `DuplicateIdException`: 회원가입 ID 중복
+- `LoginFailedException`: 로그인 실패
+- `DataNotFoundException`: 조회 데이터 없음
+- `AuthorizationException`: 권한 없음
+- `DatabaseException` - DB연결/쿼리 오류 
 
 ---
 
