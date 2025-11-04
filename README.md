@@ -149,7 +149,7 @@ memberBoard/
 ---
 
 클래스 다이어그램
-![Class_Diagram](./images/Java_Mini_Project.drawio.png)
+![Class_Diagram](./image/Java_Mini_Project.drawio.png)
 
 ---
 
@@ -158,7 +158,7 @@ ER 다이어그램
 ---
 
 논리형 다이어그램
-![Logical_Data_Model](./images/javaMiniProjectDB.drawio.png)
+![Logical_Data_Model](./image/javaMiniProjectDB.drawio.png)
 
 ---
 
