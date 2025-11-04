@@ -1,60 +1,36 @@
-# 회원 관리 및 게시판 시스템 (Java Mini Project)
+# 🧑‍💻 회원 관리 및 게시판 시스템 (Java Mini Project)
+
+## 📌 프로젝트 개요
+Java 기반의 콘솔 애플리케이션으로 **회원 관리**와 **게시판 기능**을 구현한 미니 프로젝트입니다.  
+**객체지향 프로그래밍(OOP)** 원칙을 적용하고, **MVC 패턴 구조**, **예외 처리**, **컬렉션 활용** 등을 통해  
+기초적인 백엔드 로직과 데이터 흐름을 이해하는 데 초점을 맞추었습니다.
 
 ---
 
-## 기획 의도
-Java 기반의 콘솔 애플리케이션으로 회원 관리와 게시판 기능을 구현하여,  
-객체지향 프로그래밍(OOP) 원칙과 예외 처리, 컬렉션 활용 능력을 향상시키고자 기획하였습니다.  
-사용자 인증, 권한 분리, 데이터 검증, 비밀번호 암호화 등 실무에서 필요한 핵심 기능을 직접 구현하는 데 중점을 두었습니다.
+## 🎯 개발 목표
+- MVC(Model-View-Controller) 패턴 구조 학습  
+- Entity / DTO / Repository / Service / Controller 계층 구성  
+- 회원가입 / 로그인 기능 구현  
+- 게시판 글 작성, 조회, 수정, 삭제 기능 구현  
+- 예외 처리(`try-catch`, 사용자 정의 예외 클래스)  
+- `List`, `Map` 등 컬렉션 활용  
+- 데이터 유효성 검사 및 비밀번호 암호화  
 
 ---
 
-## 기획 목표
-- Java의 상속과 인터페이스 활용 능력 강화  
-- 예외 처리(try-catch)를 통한 안정적인 프로그램 설계  
-- 컬렉션 프레임워크 사용 이유 및 적용 경험 습득  
-- JDBC를 이용한 MySQL 연동 및 데이터베이스 운영 경험  
-- bcrypt 암호화 라이브러리(jbcrypt)를 사용한 보안 강화  
+## 🧱 기술 스택
+| 구분 | 사용 기술 |
+|------|------------|
+| Language | Java (JDK 11) |
+| IDE | IntelliJ IDEA |
+| Architecture | MVC Pattern |
+| Library | java.util, java.io |
+| DB | 컬렉션 기반(메모리 저장) |
+| Version Control | Git / GitHub |
 
 ---
 
-## 주요 아이디어
-- 회원가입, 로그인, 프로필 수정, 회원 탈퇴 등 회원 관리 기능 구현  
-- 게시글 작성, 조회, 수정, 삭제가 가능한 게시판 기능 구현  
-- 관리자 계정과 일반 사용자 권한 구분 및 메뉴 분리  
-- 비밀번호는 jbcrypt 라이브러리로 암호화하여 보안성 강화  
-- 데이터 유효성 검증을 위한 Validator 클래스 분리  
-
----
-
-## 프로젝트 노션
-[프로젝트 노션](https://www.notion.so/29c65619610a80fd8afef186e02b0a98)  
-
----
-
-## 팀 구성 및 역할
-- **개인 프로젝트**  
-- 전체 설계, 개발, 테스트 및 문서화 모두 단독 수행
-
----
-
-## 기술 스택
-- Java 21  
-- MySQL (mysql-connector-j)  
-- jbcrypt (비밀번호 해싱)  
-- 표준 Java 컬렉션 프레임워크 (List, Optional 등)  
-
----
-
-## 개발 환경
-- IntelliJ IDEA (Java IDE)  
-- MySQL Workbench (DB 관리)  
-- Java SDK 11  
-- Gradle (빌드 관리)  
-
----
-
-## 프로젝트 구조
+## 📂 프로젝트 구조
 ```plaintext
 memberBoard/
 ├── Main.java                      # 애플리케이션 시작점
@@ -109,94 +85,86 @@ memberBoard/
     ├── PasswordGenerator.java   # 임시 비밀번호 생성
     └── StringUtil.java          # 문자열 유틸
 ```
-주요 구현 기능
-회원 관리
+---
 
-회원가입 시 사용자 정보 입력 검증 및 비밀번호 bcrypt 암호화
+## 👥 주요 기능
 
-로그인 시 비밀번호 검증 및 활성 상태 확인
+### 🔐 회원 기능
+| 기능 | 설명 |
+|------|------|
+| 회원가입 | 아이디 중복 검사, 비밀번호 암호화 저장 |
+| 로그인 | 아이디/비밀번호 검증 후 세션 처리 |
+| 로그아웃 | 로그인 상태 해제 |
+| 회원 목록 보기 | 관리자 전용 기능 (옵션) |
 
-회원정보 조회, 수정, 삭제 기능 구현
+### 📝 게시판 기능
+| 기능 | 설명 |
+|------|------|
+| 글 작성 | 로그인한 사용자만 작성 가능 |
+| 글 목록 보기 | 전체 게시글 출력 (작성자, 날짜 포함) |
+| 글 상세보기 | 선택한 게시글의 상세 내용 표시 |
+| 글 수정 | 작성자 본인만 수정 가능 |
+| 글 삭제 | 작성자 본인만 삭제 가능 |
 
-아이디 찾기 및 비밀번호 재설정(임시 비밀번호 발급) 기능
+---
 
-게시판 관리
+## ⚙️ 실행 예시
 
-게시글 작성, 목록 조회, 상세 조회
+=========================
+회원 관리 및 게시판
 
-작성자 권한 기반 게시글 수정 및 삭제 기능
+회원가입
 
-관리자 권한으로 전체 게시글 관리
+로그인
 
-예외 처리
+종료
 
-모든 사용자 입력 및 DB 연동 과정에 try-catch 문 적용
+선택: 1
+[회원가입]
+아이디: test01
+비밀번호: ****
+닉네임: 홍길동
+✅ 회원가입이 완료되었습니다!
 
-사용자 정의 예외 클래스로 명확한 에러 구분 및 메시지 제공
+선택: 2
+[로그인]
+아이디: test01
+비밀번호: ****
+✅ 로그인 성공!
 
-상속과 인터페이스
+게시판 메뉴로 이동합니다.
 
-BoardService, UserService 인터페이스와 구현체 분리
+---
 
-Entity, DTO 클래스 계층 구조 설계
+## 🧩 예외 처리 설계
+- `UserNotFoundException`: 로그인 시 존재하지 않는 회원  
+- `DuplicateUserException`: 회원가입 시 중복 아이디  
+- `UnauthorizedAccessException`: 게시글 수정/삭제 시 권한 부족  
+- `InvalidInputException`: 잘못된 형식의 입력 처리  
 
-컬렉션 프레임워크 사용 이유
+---
 
-다수의 사용자 및 게시글 데이터를 관리하고 조회하는 데 List 컬렉션 사용
+## 🧠 학습 포인트
+- MVC 패턴 구조를 통한 역할 분리 이해  
+- `List`, `Map` 등 컬렉션 활용을 통한 데이터 저장/조회  
+- `try-catch` 및 사용자 정의 예외 클래스 구현  
+- 객체 간 의존 관계 주입 및 단일 책임 원칙 적용  
 
-Optional 클래스를 활용해 NullPointerException 예방
+---
 
-Stream API를 이용한 데이터 필터링 및 변환으로 코드 가독성 향상
+## 🏁 향후 개선 방향
+- 파일 입출력(IO) 또는 DB 연동으로 데이터 영속성 확보  
+- 비밀번호 암호화(`SHA-256`, `BCrypt` 등) 적용  
+- 관리자(Admin) 계정 추가 및 사용자 관리 기능  
+- GUI 또는 웹 기반으로 확장 (Spring Boot로 리팩토링 가능)  
 
-기술 요약
-MySQL 연동: JDBC mysql-connector-j를 이용해 DB CRUD 구현
+---
 
-비밀번호 보안: jbcrypt 라이브러리로 비밀번호 해싱 및 검증
+## 👨‍🎓 개발자 정보
+**개발자:** 한해찬  
+**GitHub:** [https://github.com/your-github-id](https://github.com/your-github-id)  
+**Email:** your-email@example.com  
 
-입력 검증: 정규표현식 기반 전화번호, 이메일, 비밀번호 등 유효성 검사
-
-콘솔 UI: 사용자 친화적 입력 핸들링과 메뉴 구성
-
-객체지향 설계: 책임 분리 및 유지보수 용이성 고려한 계층 구조
-
-환경 변수 및 설치
-MySQL 설치 및 데이터베이스 생성
-
-프로젝트 클론 및 빌드
-
-
-git clone https://github.com/yourusername/member-board.git
-cd member-board
-./gradlew build
-src/main/resources/config.properties (또는 코드 내 DB 설정) 파일에 DB 연결 정보 설정
-
-properties
-
-db.url=jdbc:mysql://localhost:3306/memberboard?useSSL=false&serverTimezone=UTC
-db.username=root
-db.password=yourpassword
-실행
-
-
-java -jar build/libs/member-board.jar
-프로젝트 마무리
-Java 기본 문법부터 JDBC 연동, bcrypt 보안 적용까지 한 프로젝트에 모두 담아 실무 감각 향상에 중점
-
-복잡한 사용자 검증과 예외 처리를 통해 견고한 코드 작성법 경험
-
-단독으로 프로젝트 기획, 개발, 테스트, 문서화 전 과정을 완성하며 책임감과 문제 해결 능력 향상
-
-향후 발전 방향
-GUI 환경(예: JavaFX, Swing) 또는 웹 기반 인터페이스로 확장
-
-Spring Framework 및 JPA 도입으로 유지보수성 및 생산성 개선
-
-JWT 기반 인증 및 권한 관리로 보안 강화
-
-커넥션 풀(HikariCP 등) 적용으로 DB 성능 최적화
-
-자동화 테스트(JUnit) 도입으로 코드 신뢰성 향상
-
-클라우드 배포 및 CI/CD 환경 구축
-
-감사합니다!
+---
+📅 **개발 기간:** 2025.10 ~ 2025.11  
+🧩 **프로젝트 유형:** 개인 프로젝트  
