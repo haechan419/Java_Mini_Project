@@ -34,7 +34,7 @@ Java 기반의 콘솔 애플리케이션으로 **회원 관리**와 **게시판 
 | 구분 | 사용 기술 |
 |------|------------|
 | Language | Java (JDK 21) |
-| IDE | Eclipse |
+| IDE | Eclipse(25.09) |
 | Architecture | MVC Pattern |
 | Library | java.util, java.io ... |
 | DB | MySQL |
