@@ -21,11 +21,11 @@ Java 기반의 콘솔 애플리케이션으로 **회원 관리**와 **게시판 
 ## 🧱 기술 스택
 | 구분 | 사용 기술 |
 |------|------------|
-| Language | Java (JDK 11) |
-| IDE | IntelliJ IDEA |
+| Language | Java (JDK 21) |
+| IDE | Eclipse |
 | Architecture | MVC Pattern |
-| Library | java.util, java.io |
-| DB | 컬렉션 기반(메모리 저장) |
+| Library | java.util, java.io ... |
+| DB | MySQL |
 | Version Control | Git / GitHub |
 
 ---
@@ -33,57 +33,57 @@ Java 기반의 콘솔 애플리케이션으로 **회원 관리**와 **게시판 
 ## 📂 프로젝트 구조
 ```plaintext
 memberBoard/
-├── Main.java                      # 애플리케이션 시작점
+├── Main.java                     # 애플리케이션 시작점
 │
-├── config/                        # 설정 관련
+├── config/                       # 설정 관련
 │   ├── DBConnection.java         # DB 연결 (싱글톤)
 │   └── AppConfig.java            # 애플리케이션 설정 상수
 │
-├── domain/                        # 도메인 모델
+├── domain/                       # 도메인 모델
 │   ├── entity/                   # 엔티티 (DB 테이블과 매핑)
-│   │   ├── User.java            # 사용자 엔티티
-│   │   ├── Board.java           # 게시글 엔티티
-│   │   └── Role.java            # 권한 Enum
+│   │   ├── User.java             # 사용자 엔티티
+│   │   ├── Board.java            # 게시글 엔티티
+│   │   └── Role.java             # 권한 Enum
 │   └── dto/                      # 데이터 전송 객체
-│       ├── UserDTO.java         # 사용자 DTO
-│       └── BoardDTO.java        # 게시글 DTO
+│       ├── UserDTO.java          # 사용자 DTO
+│       └── BoardDTO.java         # 게시글 DTO
 │
-├── repository/                    # 데이터 접근 계층
-│   ├── UserRepository.java      # 사용자 Repository 인터페이스
-│   ├── UserRepositoryImpl.java  # 사용자 Repository 구현
-│   ├── BoardRepository.java     # 게시글 Repository 인터페이스
-│   └── BoardRepositoryImpl.java # 게시글 Repository 구현
+├── repository/                   # 데이터 접근 계층
+│   ├── UserRepository.java       # 사용자 Repository 인터페이스
+│   ├── UserRepositoryImpl.java   # 사용자 Repository 구현
+│   ├── BoardRepository.java      # 게시글 Repository 인터페이스
+│   └── BoardRepositoryImpl.java  # 게시글 Repository 구현
 │
-├── service/                       # 비즈니스 로직 계층
-│   ├── UserService.java         # 사용자 Service 인터페이스
-│   ├── UserServiceImpl.java     # 사용자 Service 구현
-│   ├── BoardService.java        # 게시글 Service 인터페이스
-│   └── BoardServiceImpl.java    # 게시글 Service 구현
+├── service/                      # 비즈니스 로직 계층
+│   ├── UserService.java          # 사용자 Service 인터페이스
+│   ├── UserServiceImpl.java      # 사용자 Service 구현
+│   ├── BoardService.java         # 게시글 Service 인터페이스
+│   └── BoardServiceImpl.java     # 게시글 Service 구현
 │
-├── controller/                    # 컨트롤러 계층
-│   ├── UserController.java      # 사용자 컨트롤러
-│   └── BoardController.java     # 게시글 컨트롤러
+├── controller/                   # 컨트롤러 계층
+│   ├── UserController.java       # 사용자 컨트롤러
+│   └── BoardController.java      # 게시글 컨트롤러
 │
-├── view/                          # 뷰 계층 (UI)
-│   ├── MainView.java            # 메인 화면 (메뉴)
-│   ├── InputHandler.java        # 입력 처리
-│   └── MessageView.java         # 출력 처리
+├── view/                         # 뷰 계층 (UI)
+│   ├── MainView.java             # 메인 화면 (메뉴)
+│   ├── InputHandler.java         # 입력 처리
+│   └── MessageView.java          # 출력 처리
 │
-├── exception/                     # 예외 처리
-│   ├── UserException.java       # 사용자 관련 예외
-│   └── BoardException.java      # 게시글 관련 예외
+├── exception/                    # 예외 처리
+│   ├── UserException.java        # 사용자 관련 예외
+│   └── BoardException.java       # 게시글 관련 예외
 │
-├── validator/                     # 유효성 검증
-│   ├── UserValidator.java       # 사용자 입력 검증
-│   ├── BoardValidator.java      # 게시글 입력 검증
-│   └── InputValidator.java      # 공통 입력 검증
+├── validator/                    # 유효성 검증
+│   ├── UserValidator.java        # 사용자 입력 검증
+│   ├── BoardValidator.java       # 게시글 입력 검증
+│   └── InputValidator.java       # 공통 입력 검증
 │
-├── security/                      # 보안 관련
-│   └── PasswordUtil.java        # 비밀번호 암호화
+├── security/                     # 보안 관련
+│   └── PasswordUtil.java         # 비밀번호 암호화
 │
-└── util/                          # 유틸리티
-    ├── PasswordGenerator.java   # 임시 비밀번호 생성
-    └── StringUtil.java          # 문자열 유틸
+└── util/                         # 유틸리티
+    ├── PasswordGenerator.java    # 임시 비밀번호 생성
+    └── StringUtil.java           # 문자열 유틸
 ```
 ---
 
