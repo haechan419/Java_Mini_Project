@@ -57,9 +57,9 @@ Java 기반의 콘솔 애플리케이션으로 **회원 관리**와 **게시판 
 
 ```plaintext
 memberBoard/
-├── Main.java                                 # 애플리케이션 진입점 (메인 실행 클래스)
+├── Main.java                                # 애플리케이션 진입점 (메인 실행 클래스)
 │
-├── config/                                   # 애플리케이션 및 DB 설정
+├── config/                                  # 애플리케이션 및 DB 설정
 │   ├── AppConfig.java                       # 상수 및 환경 설정값 (비밀번호 규칙, 정규식 등)
 │   └── DBConnection.java                    # MySQL DB 연결 관리 (Singleton)
 │
@@ -107,7 +107,7 @@ memberBoard/
 ├── security/                                # 보안 관련 기능
 │   └── PasswordUtil.java                    # jbcrypt를 이용한 비밀번호 해싱 및 검증
 │
-└── util/                                   # 공통 유틸리티
+└── util/                                    # 공통 유틸리티
     ├── PasswordGenerator.java               # 임시 비밀번호 생성기
     └── StringUtil.java                      # 문자열 관련 유틸
 ```
