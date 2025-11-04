@@ -113,6 +113,11 @@ memberBoard/
 ```
 ---
 
+### 📘 클래스 다이어그램
+![Class_Diagram](./image/Java_Mini_Project.drawio.png)
+
+---
+
 ## 🚀 주요 기능 (Features)
 
 ### 🔐 회원 기능 (User Management)
@@ -159,17 +164,9 @@ memberBoard/
 |------|------------|
 | ![userDatabase](./image/userDB.png) | ![boardDatabase](./image/boardDB.png) |
 
-### 📘 클래스 다이어그램
-![Class_Diagram](./image/Java_Mini_Project.drawio.png)
-
 ---
 
 ### 🗃️ ER 다이어그램 (Entity–Relationship Diagram)
-![ER_Diagram](./image/javaMiniProjectERD.drawio.png)
-
----
-
-### 🧮 논리형 다이어그램 (Logical Data Model)
 ![Logical_Model](./image/javaMiniProjectDB.drawio.png)
 
 ---
