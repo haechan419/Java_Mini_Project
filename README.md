@@ -149,16 +149,22 @@ memberBoard/
 ---
 
 클래스 다이어그램
+
+
 ![Class_Diagram](./image/Java_Mini_Project.drawio.png)
 
 ---
 
 ER 다이어그램
+
+
 ![Entity–Relationship Diagram](./image/javaMiniProjectERD.drawio.png)
 
 ---
 
 논리형 다이어그램
+
+
 ![Logical_Data_Model](./image/javaMiniProjectDB.drawio.png)
 
 ---
