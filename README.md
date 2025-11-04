@@ -176,12 +176,21 @@ memberBoard/
 
 | 예외 클래스 | 설명 |
 |--------------|------|
-| `InvalidInputException` | 입력값 공백 / 형식 오류 발생 시 |
-| `DuplicateIdException` | 회원가입 시 아이디 중복 발생 |
-| `LoginFailedException` | 로그인 실패 (존재하지 않는 계정 또는 비밀번호 불일치) |
-| `DataNotFoundException` | 데이터 조회 실패 시 |
-| `AuthorizationException` | 권한 없는 접근 시 |
-| `DatabaseException` | DB 연결 또는 쿼리 오류 발생 시 |
+| `InvalidInputException` | 입력값이 공백이거나 형식에 맞지 않을 때 발생 |
+| `DuplicateIdException` | 회원가입 시 이미 존재하는 아이디로 가입 시도할 때 발생 |
+| `LoginFailedException` | 로그인 시 아이디가 없거나 비밀번호가 일치하지 않을 때 발생 |
+| `DataNotFoundException` | 조회하려는 데이터가 존재하지 않을 때 발생 |
+| `AuthorizationException` | 권한이 없는 사용자가 접근을 시도할 때 발생 |
+| `DatabaseException` | 데이터베이스 연결 실패 또는 쿼리 실행 오류 시 발생 |
+| `IllegalArgumentException` | 메서드 호출 시 전달된 인자가 유효하지 않을 때 발생 |
+| `ArrayIndexOutOfBoundsException` | 배열의 유효하지 않은 인덱스에 접근할 때 발생 |
+| `SQLException` | SQL 구문 오류, 연결 실패, 제약 조건 위반 등 DB 관련 오류 발생 시 |
+| `ClassNotFoundException` | JDBC 드라이버 클래스 등 필요한 클래스를 찾지 못했을 때 발생 |
+| `NullPointerException` | 객체가 `null`인 상태에서 메서드나 필드를 참조할 때 발생 |
+| `InputMismatchException` | `Scanner` 등에서 예상한 타입과 다른 입력을 받을 때 발생 |
+| `ExceptionInInitializerError` | 클래스 초기화 중 예외가 발생했을 때 (정적 블록 등) 발생 |
+
+
 
 ---
 
